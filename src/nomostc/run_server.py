@@ -8,7 +8,7 @@ from pymongo.errors import PyMongoError
 from nomostc.routers import api_router
 from nomostc.exceptions import EdifactParsingError
 from nomostc.db import get_db, close_db
-from nomostc.repository import log_request
+from nomostc.persistence import log_request
 
 logger = logging.getLogger("nomostc")
 

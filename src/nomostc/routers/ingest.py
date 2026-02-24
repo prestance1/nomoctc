@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from nomostc.db import get_db
 from nomostc.parser import parse_edifact_file
-from nomostc.repository import ingest_or_reprocess
+from nomostc.persistence import ingest_or_reprocess
 
 logging.basicConfig(level="DEBUG")
 logger = logging.getLogger("nomostc")
