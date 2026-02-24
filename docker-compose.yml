@@ -1,0 +1,28 @@
+services:
+  backend:
+    image: nomostc
+    pull_policy: never
+    container_name: nomostc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      MONGO_URI: mongodb://root:example@mongodb:27017
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:7.0.12
+    container_name: nomostc-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb-data:
