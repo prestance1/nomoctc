@@ -32,10 +32,6 @@ class RequestLogDoc(TypedDict):
     timestamp: datetime
 
 
-def _now() -> datetime:
-    return datetime.now(timezone.utc)
-
-
 def log_request(
     db: Database,
     *,
@@ -49,7 +45,7 @@ def log_request(
         "method": method,
         "path": path,
         "status_code": status_code,
-        "timestamp": timestamp or _now(),
+        "timestamp": timestamp or datetime.now(timezone.utc),
     }
     db[REQUESTS_COLLECTION].insert_one(doc)
 
@@ -74,7 +70,7 @@ def ingest_or_reprocess(db: Database, parsed: ParsedEdifactFile) -> tuple[list[s
     Returns (inserted_ids, version).
     """
     col = db[PARSED_EDIFACT_COLLECTION]
-    now = _now()
+    now = datetime.now(timezone.utc)
 
     interchange = asdict(parsed.messages[0].interchange) if parsed.messages else {}
 
